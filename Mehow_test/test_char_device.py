@@ -13,6 +13,7 @@ def FRDM_RESPONSE():
 def FRDM_SEND(value):
     file_object = open('/dev/rfcomm0', 'w')
 
+
     if len(value)==1:
         file_object.write(value)
     else:
