@@ -2,6 +2,7 @@
 #include "uart.h"
 #include "leds.h"
 #include "sLCD.h"
+#include "intdom.h"
 
 uint16_t display = 0;
 
@@ -9,16 +10,12 @@ uint16_t display = 0;
 
 void uart2_init(void){
 	
-	SIM->SCGC4 |= SIM_SCGC4_UART2_MASK ; // clock
-	SIM->SCGC5 |= SIM_SCGC5_PORTE_MASK;  // clock
+	SIM->SCGC4 |= SIM_SCGC4_UART2_MASK ; 
+	SIM->SCGC5 |= SIM_SCGC5_PORTE_MASK;  
 	
-	PORTE->PCR[16] = PORT_PCR_MUX(3);                      /// ustawic !!
-	PORTE->PCR[17] = PORT_PCR_MUX(3);											////
-	
-	//SPRAWDZIC TO!!
-	
-	
-	
+	PORTE->PCR[16] = PORT_PCR_MUX(3);                    
+	PORTE->PCR[17] = PORT_PCR_MUX(3);										
+
 	UART2->C2 &= ~UART_C2_RE_MASK; // Receiver off
 	UART2->C2 &= ~UART_C2_TE_MASK; // Transmitter off
 	
@@ -35,6 +32,8 @@ void uart2_init(void){
 	UART2->C2 |= UART_C2_TE_MASK; // Transmitter on
 }
 
+
+/* deprecated - instead receiving used in irq 
 uint8_t uart2_receive(void)
 {
 	uint8_t  value;
@@ -45,6 +44,8 @@ uint8_t uart2_receive(void)
 	return value;
 	
 }
+*/
+
 
 void uart2_transmit(uint8_t value)
 {
@@ -54,48 +55,18 @@ void uart2_transmit(uint8_t value)
 	
 }
 
-void uart_leds(uint8_t blue){
-	//if(blue=='G' || blue == 'g') ledsInitialize();
-	//else if(blue=='R' || blue == 'r') ledsInitialize();
-	ledsInitialize();
-
-	
-}
-
 void UART2_IRQHandler() {
 	uint8_t value = 0;
 
 	while(!(UART2->S1 & UART_S1_RDRF_MASK)) {}
 	value = UART2->D;
 	
-	uart2_transmit('5');
-	
+	handle_event(value);
+	uart2_transmit(value);
+	uart2_transmit('\n');
+	//10 - send ACK?
 		
-	if((value >= '0' && value <= '9') || value == 10) {
-		if(value == 10) { //10 - new line in ASCII (will be treated as termination char)
-			display_on_lcd();
-			display = 0;
-			
-		}
-		else {
-			display = display*10+(value-'0'); //'0' - 48 ascii 
-		}
-}
-	else {
-		display = 10000; //error if incorrect char
-	}
 	
-	//dopisac jeszce sprawdzenie czy jest liczba!
-
-		
-	if(value == '1') {
-	FPTD->PTOR = 1UL<<5;
-
-	}
-	
-	if(value == '0') {
-	FPTE->PTOR = 1UL<<29;
-	}
 	
 }
 
@@ -103,5 +74,4 @@ void display_on_lcd() {
 	if(display_number(display,2) != 0) {
 		display_error();
 	}
-
 }

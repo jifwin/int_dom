@@ -2,6 +2,7 @@
 #include "leds.h"
 #include "uart.h"
 #include "sLCD.h"
+#include "intdom.h"
 
 
 /* zad 1 */
@@ -23,16 +24,18 @@
 
 int main (void) {
 	
-	uart2_init();
-
-	sLCD_Init();
 	ledsInitialize();
+	configure_pins();
+	uart2_init();
+	
+	sLCD_Init();
+	
 	
 	UART2->C2 |= UART_C2_RIE_MASK;
 	
 	NVIC_ClearPendingIRQ(UART2_IRQn);				
-		NVIC_EnableIRQ(UART2_IRQn);						
-		NVIC_SetPriority (UART2_IRQn, 3);			
+	NVIC_EnableIRQ(UART2_IRQn);						
+	NVIC_SetPriority (UART2_IRQn, 3);			
 	
 	while(1){
 

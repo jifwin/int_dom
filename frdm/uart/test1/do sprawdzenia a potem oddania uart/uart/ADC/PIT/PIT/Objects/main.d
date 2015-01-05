@@ -9,3 +9,4 @@
 .\objects\main.o: uart.h
 .\objects\main.o: leds.h
 .\objects\main.o: sLCD.h
+.\objects\main.o: intdom.h

@@ -9,3 +9,4 @@
 .\objects\uart.o: leds.h
 .\objects\uart.o: leds.h
 .\objects\uart.o: sLCD.h
+.\objects\uart.o: intdom.h
