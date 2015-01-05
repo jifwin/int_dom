@@ -1,7 +1,7 @@
 #!/usr/bin/python2
 def FRDM_RESPONSE():
     value=[]
-    file_object = open('pseudo_char_device', 'r')
+    file_object = open('/dev/rfcomm0', 'r')
     response = file_object.readline()
     #print response
     if len(response) ==1:       #if response is ACK
@@ -11,7 +11,7 @@ def FRDM_RESPONSE():
             value.append(i)
     return value
 def FRDM_SEND(value):
-    file_object = open('pseudo_char_device', 'w')
+    file_object = open('/dev/rfcomm0', 'w')
 
     if len(value)==1:
         file_object.write(value)
@@ -21,5 +21,5 @@ def FRDM_SEND(value):
 
 
 #TESTS:
-#FRDM_SEND("A")
+FRDM_SEND("A")
 print FRDM_RESPONSE()
