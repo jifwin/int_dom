@@ -41,9 +41,8 @@ def index(request):
         body_text = "Hello World!"
 
 
-    {
-        'refresh': refresh()
-    }
+
+
 
 
 
@@ -51,7 +50,8 @@ def index(request):
     context = RequestContext(request,
         {
 
-            'body_text': body_text
+            'body_text': body_text,
+            'refresh': refresh()
 
         })
     return HttpResponse(template.render(context))
