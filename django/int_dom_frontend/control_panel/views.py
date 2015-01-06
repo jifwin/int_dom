@@ -51,7 +51,8 @@ def index(request):
         {
 
             'body_text': body_text,
-            'refresh': refresh()
+            'refresh': refresh(),
+            'light' :send_light()
 
         })
     return HttpResponse(template.render(context))

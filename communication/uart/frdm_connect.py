@@ -35,6 +35,17 @@ def refresh():
     file_object.close()
     return refresh_response()
 
+def light_response():
+    file_object=open(filename, 'r')
+    response=file_object.readline()
+    resp=response[1]*512+response[0]
+    print resp #response from lighten detectoren
+    return resp
+def send_light():
+    file_object=open(filename,'w')
+    file_object.write('W'+'\n')
+    file_object.close()
+    return light_response()
 
 def int_to_char(value):
     if isinstance( value, int ):
