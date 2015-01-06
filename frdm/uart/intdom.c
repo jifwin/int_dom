@@ -4,7 +4,7 @@
 
 //using PORTD!
 
-unsigned int pin_states[3] = {1, 1, 1}; //temporary?
+unsigned int pin_states[] = {1, 1, 1}; //temporary?
 
 void handle_event(uint8_t value) {
 	
@@ -65,7 +65,7 @@ void handle_event(uint8_t value) {
 void send_refresh() {
 	uint8_t i = 0;
 	uart2_transmit('R');
-	for(i = 0; i < sizeof(pin_states); i++) {
+	for(i = 0; i < (sizeof(pin_states)/sizeof(pin_states[0])); i++) { //dla kazdego pin state
 		uart2_transmit(pin_states[i]);
 	}
 	uart2_transmit('\n');
