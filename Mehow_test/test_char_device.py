@@ -1,6 +1,6 @@
 #!/usr/bin/python2
 filename='pseudo_char_device'
-def FRDM_RESPONSE():
+def frdm_response():
     value=[]
     file_object = open(filename, 'r')
     response = file_object.readline()
@@ -12,22 +12,32 @@ def FRDM_RESPONSE():
         for i in response:
             value.append(i)
     return value
-def FRDM_SEND(value):
+def frdm_send(value):
     file_object = open(filename, 'w')
     value=value+"\n"                            #adding EOL
     file_object.write(value)
     file_object.close()
-def REFRESH():
+def refresh():
     file_object = open(filename, 'w')
     file_object.write(chr(128)+'\n')              #0b10000000 as refresh Question
     file_object.close()
 
 
+def int_to_char(value):
+    if isinstance( value, int ):
+        response=chr(value+65)
+    else:
+        response=[]
+
+        for [i, item] in enumerate(value):
+            response.append(chr(item+65))
+
+    return response
+
 #TESTS:
 
 
-#FRDM_SEND("AA")
-REFRESH()
-#FRDM_SEND("A")
+frdm_send(int_to_char(0))
+#refresh()
 
-print FRDM_RESPONSE()
+print frdm_response()

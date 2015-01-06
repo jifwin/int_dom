@@ -6,6 +6,10 @@ from django.contrib.auth import logout
 
 
 # Create your views here.
+#def control(request):
+
+
+
 
 def index(request):
 
