@@ -22,14 +22,18 @@ def refresh_response():
     file_object = open(filename, 'r')
     response = file_object.readline()
     file_object.close()
+    resp=""
+    for item in response:
+        resp+=str(item)
     ##maybe add algoritm in future.
-    return response
+    #print resp
+    return resp
 
 def refresh():
     file_object = open(filename, 'w')
     file_object.write(chr(128)+'\n')              #0b10000000 as refresh Question
     file_object.close()
-
+    return refresh_response()
 
 
 def int_to_char(value):
