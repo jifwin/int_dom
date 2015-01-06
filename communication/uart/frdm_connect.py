@@ -1,6 +1,6 @@
+__author__ = 'mehow'
 #!/usr/bin/python2
-import sys
-filename=sys.argv[1]
+filename='/dev/rfcomm0'
 def frdm_response():
     #value=[]
     file_object = open(filename, 'r')
@@ -42,12 +42,3 @@ def int_to_char(value):
             response.append(chr(item+65))
 
     return response
-
-#TESTS:
-
-
-#print frdm_send(23)
-#refresh()
-
-#print frdm_response()
-#print refresh_response()

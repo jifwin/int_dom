@@ -1,14 +1,40 @@
 from django.shortcuts import render
+import sys
 from django.http import HttpResponse
 from django.template import RequestContext, loader
 from django.contrib.auth import authenticate, login
 from django.contrib.auth import logout
-
+sys.path.append('/home/mehow/git/communication/uart/') #do rozkminienia!!!!!!!!!!
+from frdm_connect import *
 
 # Create your views here.
-#def control(request):
+def control(request,device,action):
+
+    if request.user.is_authenticated():
+        #device_table={"1":1,"2":2,"0":0}
+        action_table={"blink":0,"on":1,"off":2,"toggle":3}
+        #for i in device_table:
+        #    if i==device:
+        #for j in action_table:              #FIND!!!!
+         #   if j==action:
+
+        device = int(device)
+
+        response=device*4+action_table[action]
+        frdm_send(response)
 
 
+    else:
+        body_text = "Not Logged in!"
+
+    template = loader.get_template('control_panel/control.html')
+    context = RequestContext(request,
+        {
+
+            'msg':'dupa'
+
+        })
+    return HttpResponse(template.render(context))
 
 
 def index(request):
