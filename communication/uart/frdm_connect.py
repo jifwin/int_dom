@@ -38,12 +38,18 @@ def refresh():
 def light_response():
     file_object=open(filename, 'r')
     response=file_object.readline()
-    resp=response[1]*512+response[0]
+    
+    print bin(ord(response[0]))
+    print bin(ord(response[1]))
+    
+    print type(response)
+
+    resp=ord(response[1])*256+ord(response[0])
     print resp #response from lighten detectoren
-    return resp
+    return str(resp)
 def send_light():
     file_object=open(filename,'w')
-    file_object.write('W'+'\n')
+    file_object.write('Z'+'\n')
     file_object.close()
     return light_response()
 
