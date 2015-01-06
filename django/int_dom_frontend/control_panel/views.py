@@ -12,12 +12,7 @@ from frdm_connect import *
 def control(request,device,action):
 
     if request.user.is_authenticated():
-        #device_table={"1":1,"2":2,"0":0}
-        action_table={"blink":0,"on":1,"off":2,"toggle":3}
-        #for i in device_table:
-        #    if i==device:
-        #for j in action_table:              #FIND!!!!
-         #   if j==action:
+        action_table={"blink":0,"off":1,"on":2,"toggle":3}
 
         device = int(device)
 
