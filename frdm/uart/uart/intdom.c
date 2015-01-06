@@ -105,8 +105,6 @@ void send_light() {
 	
 	uart2_transmit(p[0]);
 	uart2_transmit(p[1]);
-	uart2_transmit(p[2]);
-	uart2_transmit(p[3]);
 
 	uart2_transmit('\n');
 	//todo:!!!
