@@ -7,3 +7,5 @@
 	
 	void configure_pins();
 	void handle_event(uint8_t value);
+	void send_refresh();
+	void send_ack();

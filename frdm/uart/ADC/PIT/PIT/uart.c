@@ -61,9 +61,13 @@ void UART2_IRQHandler() {
 	while(!(UART2->S1 & UART_S1_RDRF_MASK)) {}
 	value = UART2->D;
 	
+	if(value == 10) { // "\n" - end 
+		
+		
+		
+	}
 	handle_event(value);
 	uart2_transmit(value);
-	uart2_transmit('\n');
 	//10 - send ACK?
 		
 	

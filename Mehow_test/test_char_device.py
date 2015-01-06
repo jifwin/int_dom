@@ -51,3 +51,4 @@ def int_to_char(value):
 refresh()
 
 #print frdm_response()
+print refresh_response()

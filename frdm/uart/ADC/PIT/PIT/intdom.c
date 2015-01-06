@@ -4,17 +4,25 @@
 
 //using PORTD!
 
-
+unsigned int pin_states[3] = {1, 1, 1}; //temporary?
 
 void handle_event(uint8_t value) {
 	
 	uint8_t function_number = 0;
 	uint8_t device_number = 0;
 	unsigned int shift = 0;
+	unsigned int delay = 0;
+	uint8_t index = 0;
 	
+	if(value == 128) { //128 == refresh all
+		
+			send_refresh();
+		
+	}
+	else {
 	value = value - 'A'; //start conuting from 0
 	function_number = value % 4; // 4 - liczba funkcji  
-	device_number = value/4; // przesuniecie w prawo (pominiecie dwoch ostatnich bitow) = numer pinu
+	index = device_number = value/4; // przesuniecie w prawo (pominiecie dwoch ostatnich bitow) = numer pinu
 	
 	//convert to port numbers
 	device_number = (device_number+1)*2;
@@ -23,31 +31,48 @@ void handle_event(uint8_t value) {
 	
 	switch(function_number) {
 		case 0: 
-			
+			FPTD->PTOR |= shift;
+			for(delay=0; delay<3600000; delay++);
+			FPTD->PTOR |= shift;
 			break;
 		
 		case 1:
 			FPTD->PCOR |= shift;
+			pin_states[index] = 0;
 			break;
 		
 		case 2:
 			FPTD->PSOR |= shift;
+			pin_states[index] = 1;
 			break;
 		
 		case 3:
 			FPTD->PTOR |= shift;
+			pin_states[index] = ((pin_states[index] == 1) ? 0 : 1); // invert
 			break;
 	}
 	
-	//00 - CHECK
+	//00 - MRUG
 	//01 - ON
 	//10 - OFF
 	//11 - TOGGLE
 	
+	send_ack();
+	}	
+}
 	
 
-	
+void send_refresh() {
+	//uint32_t port = ;
+	uart2_transmit('R');
 }
+
+void send_ack() {
+	uart2_transmit('X');
+}	
+
+
+
 
 void configure_pins() {
 	unsigned delay = 0;
