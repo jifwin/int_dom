@@ -1,5 +1,6 @@
 #!/usr/bin/python2
-filename='pseudo_char_device'
+import sys
+filename=sys.argv[1]
 def frdm_response():
     value=[]
     file_object = open(filename, 'r')
