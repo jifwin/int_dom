@@ -2,26 +2,35 @@
 import sys
 filename=sys.argv[1]
 def frdm_response():
-    value=[]
+    #value=[]
     file_object = open(filename, 'r')
     response = file_object.readline()
     file_object.close()
     #print response
-    if len(response) ==1:       #if response is ACK
-        return "OK"
+    if response == 'X\n':       #if response is ACK
+        return "ACK"
     else:
-        for i in response:
-            value.append(i)
-    return value
+        print response
+        return "ERROR"
 def frdm_send(value):
+    value=int_to_char(value)
     file_object = open(filename, 'w')
     value=value+"\n"                            #adding EOL
     file_object.write(value)
     file_object.close()
+    return frdm_response()
+def refresh_response():
+    file_object = open(filename, 'r')
+    response = file_object.readline()
+    file_object.close()
+    ##maybe add algoritm in future.
+    return response
+
 def refresh():
     file_object = open(filename, 'w')
     file_object.write(chr(128)+'\n')              #0b10000000 as refresh Question
     file_object.close()
+
 
 
 def int_to_char(value):
@@ -38,7 +47,7 @@ def int_to_char(value):
 #TESTS:
 
 
-frdm_send(int_to_char(3))
-#refresh()
+#print frdm_send(23)
+refresh()
 
-print frdm_response()
+#print frdm_response()
