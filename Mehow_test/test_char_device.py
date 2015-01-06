@@ -38,7 +38,7 @@ def int_to_char(value):
 #TESTS:
 
 
-frdm_send(int_to_char(0))
+frdm_send(int_to_char(3))
 #refresh()
 
 print frdm_response()
