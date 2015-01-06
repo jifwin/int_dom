@@ -2,33 +2,39 @@
 #include "intdom.h"
 #include "leds.h"
 
-/*
-extern const uint8_t events[NUM_OF_EVENTS] =  {'A', 'B', 'C', 'D' };
-extern const FGPIO_Type * PORTS[NUM_OF_EVENTS] =  {FPTA_BASE, FPTA_BASE, FPTA_BASE, FPTA_BASE };
-extern const uint32_t pin_number[NUM_OF_EVENTS] =  {1, 1, 1, 1};	
-*/
+//using PORTD!
+//00 - CHECK
+//01 - ON
+//10 - OFF
+//11 - TOGGLE
+
 
 void handle_event(uint8_t value) {
 	
-
-	ledsInitialize();
+	uint8_t function_number = 0;
+	uint8_t device_number = 0;
 	
+	value = value - 'A'; //start conuting from 0
+	function_number = value % 4; // 4 - liczba funkcji  
+	device_number = value/4; // przesuniecie w prawo (pominiecie dwoch ostatnich bitow) = numer pinu
+	
+	//convert to port numbers
+	device_number = (device_number+1)*2;
+	
+	FPTD->PTOR = 1UL << device_number;
+
 	
 }
 
 void configure_pins() {
 	unsigned delay = 0;
-	SIM->SCGC5 |=  SIM_SCGC5_PORTA_MASK;      /* Enable Clock to Port A */
-  PORTA->PCR[1] = PORT_PCR_MUX(1);                       /* Pin PTA5 is GPIO */
-	FPTA->PDDR = 1UL << 1;        //output
-	FPTA->PSOR = 1UL << 1; 
+	SIM->SCGC5 |=  SIM_SCGC5_PORTD_MASK;      
+  PORTD->PCR[2] = PORT_PCR_MUX(1);                       
+	PORTD->PCR[4] = PORT_PCR_MUX(1);                       /* Pin PTA5 is GPIO */
+	PORTD->PCR[6] = PORT_PCR_MUX(1);                       /* Pin PTA5 is GPIO */
 	
-	while(1) {
-		for(delay=0; delay<12000; delay++);
-		FPTA->PTOR = 1UL << 1; 
-	}
-	
+	FPTD->PDDR |= (1UL << 2 | 1UL << 4 | 1UL << 6);        //output
+	FPTD->PSOR |= (1UL << 2 | 1UL << 4 | 1UL << 6);
 
-	
 	
 }
