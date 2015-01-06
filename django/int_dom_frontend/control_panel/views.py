@@ -41,6 +41,9 @@ def index(request):
         body_text = "Hello World!"
 
 
+    {
+        'refresh': refresh()
+    }
 
 
 
