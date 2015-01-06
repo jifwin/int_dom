@@ -73,6 +73,7 @@ void send_refresh() {
 
 void send_ack() {
 	uart2_transmit('X');
+	uart2_transmit('\n');
 }	
 
 
