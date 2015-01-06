@@ -24,7 +24,7 @@ def refresh_response():
     file_object.close()
     resp=""
     for item in response:
-        resp+=str(item)
+        resp+=str(bin(ord(item)))
     ##maybe add algoritm in future.
     #print resp
     return resp
