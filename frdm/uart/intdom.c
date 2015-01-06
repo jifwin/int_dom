@@ -63,8 +63,11 @@ void handle_event(uint8_t value) {
 	
 
 void send_refresh() {
-	//uint32_t port = ;
+	uint8_t i = 0;
 	uart2_transmit('R');
+	for(i = 0; i < sizeof(pin_states); i++) {
+		uart2_transmit(pin_states[i]);
+	}
 	uart2_transmit('\n');
 }
 
