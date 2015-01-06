@@ -1,16 +1,17 @@
 #!/usr/bin/python2
 import sys
-filename=sys.argv[1]
+filename='/dev/rfcomm0'
 def frdm_response():
     #value=[]
     file_object = open(filename, 'r')
     response = file_object.readline()
     file_object.close()
     #print response
-    if response == 'X\n':       #if response is ACK
-        return "ACK"
-    else:
-        return "ERROR"
+    #if response == 'X\n':       #if response is ACK
+     #   return "ACK"
+    #else:
+     #   return "ERROR"
+    return response
 def frdm_send(value):
     value=int_to_char(value)
     file_object = open(filename, 'w')
@@ -48,6 +49,6 @@ def int_to_char(value):
 
 #print frdm_send(23)
 #refresh()
-
-#print frdm_response()
+for i in frdm_response():
+    print bin(ord(i))
 #print refresh_response()
