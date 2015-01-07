@@ -121,7 +121,6 @@
               <button type="button" data-switch-toggle="state" class="btn btn-default">Toggle</button>
               <button type="button" data-switch-set="state" data-switch-value="true" class="btn btn-default">Set true</button>
               <button type="button" data-switch-set="state" data-switch-value="false" class="btn btn-default">Set false</button>
-              <button type="button" data-switch-get="state" class="btn btn-default">Get</button>
             </div>
 <!-- -->
 
@@ -180,7 +179,7 @@
     <script src="/static/control_panel/js/modules/solid-gauge.js"></script>
 
     <script src="/static/control_panel/switch/bootstrap-switch-master/dist/js/bootstrap-switch.js"></script>
-	<!-- improve for all buttons-->
+	<!-- todo: improve for all buttons-->
     <script type="text/javascript">
 
 	$("[id='switch-state']").bootstrapSwitch();	
@@ -188,15 +187,22 @@
 
 	$(function() {
 
-		$('[data-switch-get]').on("click", function() {
-    			alert($('#switch-state').bootstrapSwitch('state'));
+		$('[data-switch-set]').on("click", function() {
+			    var type = $(this).data('switch-set');
+    			    $('#switch-state').bootstrapSwitch('state', $(this).data('switch-value'));
+			    
   		});
 
+		$('[data-switch-toggle]').on("click", function() {
+			var type = $(this).data('switch-toggle');
+		        $('#switch-state').bootstrapSwitch('toggle' + type.charAt(0).toUpperCase() + type.slice(1));
 
+  		});
 	})
 
     </script>
-<!-- zrobic zeby to dzialalo -->
+
+<!--todo: zrobic zeby to dzialalo -->
 	
   </body>
 </html>
