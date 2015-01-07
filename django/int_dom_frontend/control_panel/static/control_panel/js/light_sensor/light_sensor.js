@@ -56,7 +56,7 @@ $(function () {
     };
 
     // The speed gauge
-    $('#container-speed').highcharts(Highcharts.merge(gaugeOptions, {
+    $('#gauge').highcharts(Highcharts.merge(gaugeOptions, {
         yAxis: {
             min: 0,
             max: 200,
