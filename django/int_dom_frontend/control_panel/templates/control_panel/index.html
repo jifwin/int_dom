@@ -12,10 +12,10 @@
 
     <!-- Bootstrap core CSS -->
     <link href="/static/control_panel/css/bootstrap.css" rel="stylesheet">
-
+    <link href="/static/control_panel/switch/bootstrap-switch-master/dist/css/bootstrap3/bootstrap-switch.css" rel="stylesheet">
     <!-- Custom styles for this template -->
     <link href="/static/control_panel/css/jumbotron.css" rel="stylesheet">
-
+	<!-- todo: remove unnecesary bootstrap switch files -->
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -111,6 +111,7 @@
           <p><a href="/control_panel/control/00/on">ON</a></p><br />
           <p><a href="/control_panel/control/00/off">OFFE</a></p><br />
           <p><a href="/control_panel/control/00/blink">BLINK</a></p><br />
+	  <p><input type="checkbox" name="my-checkbox" checked></p>
           <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
         </div>
       </div>
@@ -162,5 +163,19 @@
     <script src="/static/control_panel/js/highcharts-more.js"></script>
     <script src="/static/control_panel/js/modules/solid-gauge.js"></script>
 
+    <script src="/static/control_panel/switch/bootstrap-switch-master/dist/js/bootstrap-switch.js"></script>
+	<!-- improve for all buttons-->
+    <script type="text/javascript">
+	$("[name='my-checkbox']").bootstrapSwitch();
+    </script>
+	
+<!-- zrobic zeby to dzialalo -->
+<div class="btn-group">
+              <button type="button" data-switch-toggle="my-checkbox" class="btn btn-default">Toggle</button>
+              <button type="button" data-switch-set="my-checkbox" data-switch-value="true" class="btn btn-default">Set true</button>
+              <button type="button" data-switch-set="my-checkbox" data-switch-value="false" class="btn btn-default">Set false</button>
+              <button type="button" data-switch-get="my-checkbox" class="btn btn-default">Get</button>
+            </div>
+	
   </body>
 </html>
