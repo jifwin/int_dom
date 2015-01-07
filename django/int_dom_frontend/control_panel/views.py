@@ -8,6 +8,9 @@ sys.path.append('/home/mehow/git/communication/uart/') #do rozkminienia!!!!!!!!!
 sys.path.append('/home/grzegorz/git/int_dom/communication/uart/') #do rozkminienia!!!!!!!!!!
 from frdm_connect import *
 
+import simplejson
+from django.core import serializers
+
 # Create your views here.
 def control(request,device,action):
 
@@ -104,3 +107,8 @@ def logout_page(request):
     template = loader.get_template('control_panel/logout.html')
     context = RequestContext(request,{})
     return HttpResponse(template.render(context))
+
+
+def light_sensor(request):
+    serialized_data = simplejson.dumps({"value": send_light()})
+    return HttpResponse(serialized_data, content_type="application/json")
