@@ -22,6 +22,9 @@
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
+<script src="/static/control_panel/js/highcharts.js"></script>
+<script src="/static/control_panel/js/highcharts-more.js"></script>
+<script src="/static/control_panel/js/modules/solid-gauge.js"></script>
   </head>
 
   <body>
@@ -99,7 +102,12 @@
         </div>
         <div class="col-md-4">
           <h2>Czujnik światła</h2>
-          <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
+          <p>
+
+		<div id="container-speed" style="width: 300px; height: 200px; float: left"></div>
+		<script src="/static/control_panel/js/light_sensor/light_sensor.js"></script>	
+
+	  </p>
           <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
        </div>
         <div class="col-md-4">
