@@ -57,6 +57,33 @@ $(function () {
 
     // The speed gauge
     $('#gauge').highcharts(Highcharts.merge(gaugeOptions, {
+
+
+//
+	chart: {
+        events: {
+
+                load: function () {
+                           setInterval(function () {
+				var chart = $('#gauge').highcharts();
+				$.getJSON('/control_panel/light_sensor', function(data) {
+				//todo: to impore, check if value correctly returned and don't use $each 
+				$.each(data, function(key, val) {
+					
+					var point = chart.series[0].points[0];
+					val = [100-Math.round(val/4096*100)]
+					point.update(val);
+				})
+
+				})
+                        }, 1000);
+                }
+
+        }
+},
+
+//
+
         yAxis: {
             min: 0,
             max: 100,
@@ -71,7 +98,7 @@ $(function () {
 
         series: [{
             name: 'Speed',
-            data: [100-Math.round(light_value/4096*100)],
+	    data: [0],
             dataLabels: {
                 format: '<div style="text-align:center"><span style="font-size:25px;color:' +
                     ((Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black') + '">{y}</span><br/>'
