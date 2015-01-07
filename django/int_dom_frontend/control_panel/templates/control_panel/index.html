@@ -67,7 +67,6 @@
       <div class="container">
         <h1>Panel sterowania</h1>
         <p>{{refresh}}</p>
-        <p>{{light}}</p>
         <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more &raquo;</a></p>
       </div>
     </div>
@@ -147,10 +146,15 @@
       </footer>
     </div> <!-- /container -->
 
+    <!-- variables for scripts -->
+    <script type="text/javascript">
+    var light_value = {{light}};
+    </script>   
 
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script src="/static/control_panel/js/bootstrap.js"></script>
     <script src="/static/control_panel/js/light_sensor/light_sensor.js"></script>

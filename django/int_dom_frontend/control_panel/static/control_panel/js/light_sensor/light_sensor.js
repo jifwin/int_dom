@@ -59,9 +59,9 @@ $(function () {
     $('#gauge').highcharts(Highcharts.merge(gaugeOptions, {
         yAxis: {
             min: 0,
-            max: 200,
+            max: 100,
             title: {
-                text: 'Speed'
+                text: 'Light intensity'
             }
         },
 
@@ -71,19 +71,16 @@ $(function () {
 
         series: [{
             name: 'Speed',
-            data: [80],
+            data: [100-Math.round(light_value/4096*100)],
             dataLabels: {
                 format: '<div style="text-align:center"><span style="font-size:25px;color:' +
-                    ((Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black') + '">{y}</span><br/>' +
-                       '<span style="font-size:12px;color:silver">km/h</span></div>'
+                    ((Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black') + '">{y}</span><br/>'
             },
-            tooltip: {
-                valueSuffix: ' km/h'
-            }
         }]
 
     }));
 
+	//todo: to remove this 
     // The RPM gauge
     $('#container-rpm').highcharts(Highcharts.merge(gaugeOptions, {
         yAxis: {
