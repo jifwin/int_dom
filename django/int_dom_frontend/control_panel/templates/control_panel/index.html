@@ -189,20 +189,30 @@
 
 		$('[data-switch-set]').on("click", function() {
 			    var type = $(this).data('switch-set');
-    			    $('#switch-state').bootstrapSwitch('state', $(this).data('switch-value'));
-			    
+			    var value = $(this).data('switch-value');
+    			    
+			    $('#switch-state').bootstrapSwitch('state', $(this).data('switch-value'));
+			    if(value == true) {
+				console.log('true')
+			    	$.get('/control_panel/control/00/on')	
+			    }	    
+			    if(value == false) {
+			    	$.get('/control_panel/control/00/off')	
+			    }	    
   		});
 
 		$('[data-switch-toggle]').on("click", function() {
 			var type = $(this).data('switch-toggle');
 		        $('#switch-state').bootstrapSwitch('toggle' + type.charAt(0).toUpperCase() + type.slice(1));
-
+			$.get('/control_panel/control/00/toggle')
   		});
 	})
 
+
+
     </script>
 
-<!--todo: zrobic zeby to dzialalo -->
+<!--todo: zrobic zeby to dzialalo  dla wszystkch! -->
 	
   </body>
 </html>
