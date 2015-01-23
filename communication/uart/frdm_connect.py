@@ -39,6 +39,14 @@ def light_response():
     file_object=open(filename, 'r')
     response=file_object.readline()
     file_object.close()
+
+    print "DUPA"
+
+    print response[0]
+    print response[1]
+
+    print "DUPA"
+
     print bin(ord(response[0]))
     print bin(ord(response[1]))
     
