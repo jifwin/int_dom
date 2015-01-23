@@ -35,6 +35,7 @@ def refresh_response():
     return resp
 
 def refresh():
+    os.remove('/tmp/django.lck')
     file_object = open(filename, 'w')
     file_object.write(chr(128)+'\n')              #0b10000000 as refresh Question
     file_object.close()
@@ -45,20 +46,20 @@ def light_response():
     response=file_object.readline()
     file_object.close()
 
-    print "DUPA"
+   # print "DUPA"
 
-    print response[0]
-    print response[1]
+#    print response[0]
+#    print response[1]
+#
+#    print "DUPA"
 
-    print "DUPA"
-
-    print bin(ord(response[0]))
-    print bin(ord(response[1]))
+#    print bin(ord(response[0]))
+#    print bin(ord(response[1]))
     
-    print type(response)
+#    print type(response)
 
     resp=ord(response[1])*256+ord(response[0])
-    print resp #response from lighten detectoren
+#    print resp #response from lighten detectoren
     return resp
 def send_light():
     if not os.path.isfile('/tmp/django.lck'):
