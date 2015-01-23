@@ -1,5 +1,6 @@
 __author__ = 'mehow'
 #!/usr/bin/python2
+import os
 filename='/dev/rfcomm0'
 def frdm_response():
     #value=[]
@@ -7,11 +8,15 @@ def frdm_response():
     response = file_object.readline()
     file_object.close()
     #print response
+    os.close('/tmp/django.lck')
+    #rm /tmp/django.lck
     if response == 'X\n':       #if response is ACK
         return "ACK"
     else:
         return "ERROR"
 def frdm_send(value):
+    open('/tmp/django.lck', 'w').close()
+    #touch /tmp/django.lck
     value=int_to_char(value)
     file_object = open(filename, 'w')
     value=value+"\n"                            #adding EOL
@@ -54,13 +59,16 @@ def light_response():
 
     resp=ord(response[1])*256+ord(response[0])
     print resp #response from lighten detectoren
-    return str(resp)
+    return resp
 def send_light():
-    file_object=open(filename,'w')
-    file_object.write('Z'+'\n')
-    file_object.close()
-    return light_response()
-
+    if not os.path.isfile('/tmp/django.lck'):
+        file_object=open(filename,'w')
+        file_object.write('Z'+'\n')
+        file_object.close()
+        return light_response()
+    else:
+        print "Ha, nakladajo sie."
+        return 0
 def int_to_char(value):
     if isinstance( value, int ):
         response=chr(value+65)
