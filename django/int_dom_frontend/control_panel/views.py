@@ -44,18 +44,13 @@ def index(request):
         body_text = "Hello World!"
 
 
-
-
-
-
-
     template = loader.get_template('control_panel/index.html')
     context = RequestContext(request,
         {
 
             'body_text': body_text,
             'refresh': refresh(),
-            'light' :send_light()
+            'light' : str(send_light())
 
         })
     return HttpResponse(template.render(context))
