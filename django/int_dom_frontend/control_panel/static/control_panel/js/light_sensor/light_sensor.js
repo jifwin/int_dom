@@ -71,7 +71,7 @@ $(function () {
 				$.each(data, function(key, val) {
 					
 					var point = chart.series[0].points[0];
-					if (point != 0) {
+					if (val != 0) {
 						val = [100-Math.round(val/4096*100)];
 						point.update(val);
 					}
