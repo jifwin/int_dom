@@ -35,6 +35,7 @@ def refresh_response():
     return resp
 
 def refresh():
+    os.remove('/tmp/django.lck')
     file_object = open(filename, 'w')
     file_object.write(chr(128)+'\n')              #0b10000000 as refresh Question
     file_object.close()
