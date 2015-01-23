@@ -208,7 +208,12 @@
 		
 	
 		$('#switch-state').on('switchChange.bootstrapSwitch', function (event, state) {
-			alert(state);
+			if(state == true) {
+				$.get('/control_panel/control/00/on')
+			}
+			else  {
+				$.get('/control_panel/control/00/off')
+			}
 			});
 		
 	})
