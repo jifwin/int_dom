@@ -38,7 +38,7 @@ def refresh():
 def light_response():
     file_object=open(filename, 'r')
     response=file_object.readline()
-    
+    file_object.close()
     print bin(ord(response[0]))
     print bin(ord(response[1]))
     
