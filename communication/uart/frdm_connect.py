@@ -8,7 +8,7 @@ def frdm_response():
     response = file_object.readline()
     file_object.close()
     #print response
-    os.close('/tmp/django.lck')
+    os.remove('/tmp/django.lck')
     #rm /tmp/django.lck
     if response == 'X\n':       #if response is ACK
         return "ACK"
