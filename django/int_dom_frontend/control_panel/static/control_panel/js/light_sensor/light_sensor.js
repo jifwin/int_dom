@@ -72,8 +72,17 @@ $(function () {
 					
 					var point = chart.series[0].points[0];
 					if (val != 0) {
-						val = [100-Math.round(val/4096*100)];
+						if (val < 2048) {
+							val = 100;
+							point.update(val);
+						}
+						else {
+
+						//TODO: ROZKMNIC JAKOS DOBRZE
+						//val = [150-Math.round(val/4096*100)];
+						val = [100-Math.round((val-2048)/2048*100)]
 						point.update(val);
+						}
 					}
 				})
 
