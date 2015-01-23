@@ -121,6 +121,7 @@
               <button type="button" data-switch-toggle="state" class="btn btn-default">Toggle</button>
               <button type="button" data-switch-set="state" data-switch-value="true" class="btn btn-default">Set true</button>
               <button type="button" data-switch-set="state" data-switch-value="false" class="btn btn-default">Set false</button>
+	      <button type="button" data-switch-="state" data-switch-value="false" class="btn btn-default">Blink</button> <!-- rozkminic -->
             </div>
 <!-- -->
 
@@ -207,6 +208,11 @@
   		});
 		
 	
+		$('[data-switch-blink]').on("click", function() {
+			var type = $(this).data('switch-toggle');
+			$.get('/control_panel/control/00/blink')
+  		});
+
 		$('#switch-state').on('switchChange.bootstrapSwitch', function (event, state) {
 			if(state == true) {
 				$.get('/control_panel/control/00/on')
