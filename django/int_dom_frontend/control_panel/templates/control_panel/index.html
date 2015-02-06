@@ -111,40 +111,45 @@
 	
 <!-- improve todo: -->
 		<p>
-              <input id="switch-state" type="checkbox" checked>
+              <input id="switch-state_00" type="checkbox" checked>
             </p>
             <div class="btn-group">
-              <button id="guzik" type="button" data-switch-toggle="state" class="btn btn-default" number="1">Toggle</button>
-              <button type="button" data-switch-set="state" data-switch-value="true" class="btn btn-default">Set true</button>
-              <button type="button" data-switch-set="state" data-switch-value="false" class="btn btn-default">Set false</button>
-	      <button type="button" data-switch-blink="state" class="btn btn-default">Blink</button> <!-- rozkminic -->
+              <button type="button" data-switch-toggle="state" class="btn btn-default" number="00">Toggle</button>
+              <button type="button" data-switch-set="state" data-switch-value="true" class="btn btn-default" number="00">Set true</button>
+              <button type="button" data-switch-set="state" data-switch-value="false" class="btn btn-default" number="00">Set false</button>
+	      <button type="button" data-switch-blink="state" class="btn btn-default" number="00">Blink</button> <!-- rozkminic -->
             </div>
 <!-- -->
 
 
             </div>
-	</div>          
-	<p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
+	</div>
         </div>
 
 
             <div class="row">
         <div class="col-md-4">
           <h2>Inna funkcja 2</h2>
+            		<p>
+              <input id="switch-state_01" type="checkbox" checked>
+            </p>
           <div class="btn-group">
-              <button type="button" data-switch-toggle="state" class="btn btn-default">Toggle</button>
-              <button type="button" data-switch-set="state" data-switch-value="true" class="btn btn-default">Set true</button>
-              <button type="button" data-switch-set="state" data-switch-value="false" class="btn btn-default">Set false</button>
-	      <button type="button" data-switch-blink="state" class="btn btn-default">Blink</button> <!-- rozkminic -->
+              <button type="button" data-switch-toggle="state" class="btn btn-default" number="01">Toggle</button>
+              <button type="button" data-switch-set="state" data-switch-value="true" class="btn btn-default" number="01">Set true</button>
+              <button type="button" data-switch-set="state" data-switch-value="false" class="btn btn-default" number="01">Set false</button>
+	      <button type="button" data-switch-blink="state" class="btn btn-default" number="01">Blink</button> <!-- rozkminic -->
             </div>
         </div>
         <div class="col-md-4">
           <h2>Inna funkcja 3</h2>
+            		<p>
+              <input id="switch-state_02" type="checkbox" checked>
+            </p>
           <div class="btn-group">
-              <button type="button" data-switch-toggle="state" class="btn btn-default">Toggle</button>
-              <button type="button" data-switch-set="state" data-switch-value="true" class="btn btn-default">Set true</button>
-              <button type="button" data-switch-set="state" data-switch-value="false" class="btn btn-default">Set false</button>
-	      <button type="button" data-switch-blink="state" class="btn btn-default">Blink</button> <!-- rozkminic -->
+              <button type="button" data-switch-toggle="state" class="btn btn-default" number="02">Toggle</button>
+              <button type="button" data-switch-set="state" data-switch-value="true" class="btn btn-default" number="02">Set true</button>
+              <button type="button" data-switch-set="state" data-switch-value="false" class="btn btn-default" number="02">Set false</button>
+	      <button type="button" data-switch-blink="state" class="btn btn-default" number="02">Blink</button> <!-- rozkminic -->
             </div>
        </div>
         <div class="col-md-4">
@@ -181,7 +186,9 @@
 	<!-- todo: improve for all buttons-->
     <script type="text/javascript">
 
-	$("[id='switch-state']").bootstrapSwitch();	
+	$("[id='switch-state_00']").bootstrapSwitch();
+	$("[id='switch-state_01']").bootstrapSwitch();
+	$("[id='switch-state_02']").bootstrapSwitch();
 
 
 	$(function() {
@@ -189,15 +196,15 @@
 		$('[data-switch-set]').on("click", function() {
 			    var type = $(this).data('switch-set');
 			    var value = $(this).data('switch-value');
-    			    
-			    $('#switch-state').bootstrapSwitch('state', $(this).data('switch-value'));
+                var number = $(this).attr("number");
+			    $('#switch-state_'+number).bootstrapSwitch('state', $(this).data('switch-value'));
 			    
 				/*
 			    if(value == true) {
-			    	$.get('/control_panel/control/00/on')	
+			    	$.get('/control_panel/control/'+number+'/on')
 			    }	    
 			    if(value == false) {
-			    	$.get('/control_panel/control/00/off')	
+			    	$.get('/control_panel/control/'+number+'/off')
 			    }	  
 			*/  
   		});
@@ -205,23 +212,23 @@
 		$('[data-switch-toggle]').on("click", function() {
 			var type = $(this).data('switch-toggle');
 		        $('#switch-state').bootstrapSwitch('toggle' + type.charAt(0).toUpperCase() + type.slice(1));
-			//	$.get('/control_panel/control/00/toggle')
-			    var number = $(this).attr("id")
+			//	$.get('/control_panel/control/'+number+'/toggle')
+
 			    console.log(number)
   		});
 
 		
 	
 		$('[data-switch-blink]').on("click", function() {
-			$.get('/control_panel/control/00/blink')
+			$.get('/control_panel/control/'+number+'/blink')
   		});
 
 		$('#switch-state').on('switchChange.bootstrapSwitch', function (event, state) {
 			if(state == true) {
-				$.get('/control_panel/control/00/on')
+				$.get('/control_panel/control/'+number+'/on')
 			}
 			else  {
-				$.get('/control_panel/control/00/off')
+				$.get('/control_panel/control/'+number+'/off')
 			}
 			});
 		
