@@ -185,70 +185,61 @@
     <script src="/static/control_panel/switch/bootstrap-switch-master/dist/js/bootstrap-switch.js"></script>
 	<!-- todo: improve for all buttons-->
     <script type="text/javascript">
+$("[id='switch-state_00']").bootstrapSwitch();
+$("[id='switch-state_01']").bootstrapSwitch();
+$("[id='switch-state_02']").bootstrapSwitch();
 
-	$("[id='switch-state_00']").bootstrapSwitch();
-	$("[id='switch-state_01']").bootstrapSwitch();
-	$("[id='switch-state_02']").bootstrapSwitch();
 
+$(function() {
 
-	$(function() {
+    $('[data-switch-set]').on("click", function() {
+        var type = $(this).data('switch-set');
+        var value = $(this).data('switch-value');
+        var number = $(this).attr("number");
+        $('#switch-state_' + number).bootstrapSwitch('state', $(this).data('switch-value'));
 
-		$('[data-switch-set]').on("click", function() {
-			    var type = $(this).data('switch-set');
-			    var value = $(this).data('switch-value');
-                var number = $(this).attr("number");
-			    $('#switch-state_'+number).bootstrapSwitch('state', $(this).data('switch-value'));
-			    
-				/*
+        /*
 			    if(value == true) {
 			    	$.get('/control_panel/control/'+number+'/on')
-			    }	    
+			    }
 			    if(value == false) {
 			    	$.get('/control_panel/control/'+number+'/off')
-			    }	  
-			*/  
-  		});
+			    }
+			*/
+    });
 
-		$('[data-switch-toggle]').on("click", function() {
-			var type = $(this).data('switch-toggle');
+    $('[data-switch-toggle]').on("click", function() {
+        var type = $(this).data('switch-toggle');
 
-			var number = $(this).attr("number");
+        var number = $(this).attr("number");
 
-		        $('#switch-state_'+number).bootstrapSwitch('toggle' + type.charAt(0).toUpperCase() + type.slice(1));
-			//	$.get('/control_panel/control/'+number+'/toggle')
+        $('#switch-state_' + number).bootstrapSwitch('toggle' + type.charAt(0).toUpperCase() + type.slice(1));
+        //	$.get('/control_panel/control/'+number+'/toggle')
 
-			    //console.log(number)
-  		});
-
-		
-	
-		$('[data-switch-blink]').on("click", function() {
-		    var number = $(this).attr("number");
-			$.get('/control_panel/control/'+number+'/blink')
-  		});
-
-		$("input[id^='switch-state']").on('switchChange.bootstrapSwitch', function (event, state) {
-		//$('#switch-state_'+number).on('switchChange.bootstrapSwitch', function (event, state) {
-
-		}
-		    var id = $(this).attr("id");
-		    var number=id.substr(id.length-2);
-
-		    console.log(number);
-			if(state == true) {
-				$.get('/control_panel/control/'+number+'/on')
-			}
-			else  {
-				$.get('/control_panel/control/'+number+'/off')
-			}
-			});
-		
-	})
+        //console.log(number)
+    });
 
 
 
+    $('[data-switch-blink]').on("click", function() {
+        var number = $(this).attr("number");
+        $.get('/control_panel/control/' + number + '/blink')
+    });
 
-    </script>
+    $("input[id^='switch-state']").on('switchChange.bootstrapSwitch', function(event, state) {
+
+        var id = $(this).attr("id");
+        var number = id.substr(id.length - 2);
+
+        console.log(number);
+        if (state == true) {
+            $.get('/control_panel/control/' + number + '/on')
+        } else {
+            $.get('/control_panel/control/' + number + '/off')
+        }
+    });
+
+}) </script>
 
 <!--todo: zrobic zeby to dzialalo  dla wszystkch! -->
 	
