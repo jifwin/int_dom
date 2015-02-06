@@ -212,7 +212,7 @@
 		$('[data-switch-toggle]').on("click", function() {
 			var type = $(this).data('switch-toggle');
 			var number = $(this).attr("number");
-		        $('#switch-state').bootstrapSwitch('toggle' + type.charAt(0).toUpperCase() + type.slice(1));
+		        $('#switch-state_'+number).bootstrapSwitch('toggle' + type.charAt(0).toUpperCase() + type.slice(1));
 			//	$.get('/control_panel/control/'+number+'/toggle')
 
 			    console.log(number)
@@ -225,7 +225,7 @@
 			$.get('/control_panel/control/'+number+'/blink')
   		});
 
-		$('#switch-state').on('switchChange.bootstrapSwitch', function (event, state) {
+		$('#switch-state_'+number).on('switchChange.bootstrapSwitch', function (event, state) {
 		    var number = $(this).attr("number");
 			if(state == true) {
 				$.get('/control_panel/control/'+number+'/on')
