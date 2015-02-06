@@ -80,10 +80,14 @@ $(function () {
 
 						//TODO: ROZKMNIC JAKOS DOBRZE
 						//val = [150-Math.round(val/4096*100)];
-						val = [100-Math.round((val-2048)/2048*100)]
+						val = [100-Math.round((val-2048)/2048*100)];
+
 						point.update(val);
 						}
+
+
 					}
+
 				})
 
 				})
