@@ -34,7 +34,7 @@ void handle_event(uint8_t value) {
 	device_number = (device_number+1)*2;
 	
 	shift = 1UL << device_number;
-	send_ack();
+	
 	switch(function_number) {
 		case 0: 
 			FPTD->PTOR |= shift;
@@ -57,7 +57,7 @@ void handle_event(uint8_t value) {
 			pin_states[index] = ((pin_states[index] == 1) ? 0 : 1); // invert
 			break;
 	}
-	
+	send_ack();
 	//00 - MRUG
 	//01 - ON
 	//10 - OFF
