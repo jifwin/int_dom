@@ -34,7 +34,7 @@ void handle_event(uint8_t value) {
 	device_number = (device_number+1)*2;
 	
 	shift = 1UL << device_number;
-	
+	send_ack();
 	switch(function_number) {
 		case 0: 
 			FPTD->PTOR |= shift;
@@ -63,7 +63,7 @@ void handle_event(uint8_t value) {
 	//10 - OFF
 	//11 - TOGGLE
 	
-	send_ack();
+	
 	}	
 }
 	
