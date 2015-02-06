@@ -1,6 +1,8 @@
 __author__ = 'mehow'
 #!/usr/bin/python2
 import os
+from django.core import serializers
+import simplejson
 
 filename='/dev/rfcomm0'
 
@@ -35,10 +37,16 @@ def refresh_response():
     file_object = open(filename, 'r')
     response = file_object.readline()
     file_object.close()
+    response = list(response)[1:-1]
+    response = [ord(item) for item in response]
+
     resp=""
-    for item in response:
-        resp+=str(bin(ord(item)))
-        resp+="\n"
+
+    #    resp+=str(bin(ord(item)))
+    #    resp+="\n"
+
+    resp = simplejson.dumps({"refresh": response})
+
     ##maybe add algoritm in future.
     #print resp
     return resp

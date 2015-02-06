@@ -60,15 +60,12 @@ def index(request):
 
             'body_text': body_text,
             'refresh': refresh(),
-            'light' : str(send_light())
 
         })
     return HttpResponse(template.render(context))
 
 
 def login_page(request):
-
-
 
     if not request.user.is_authenticated():
         username = request.POST['username']
