@@ -100,12 +100,16 @@ void configure_pins() {
 
 void send_light() {
 	uint32_t pomiar = getValue();
+	//unsigned char *p = (unsigned char*)&pomiar;
+	uint32_t a=pomiar>>8;
+	char b = (char) a;
+	uint32_t c = pomiar- b*256;
+	char d = (char) c;
 	
-	unsigned char *p = (unsigned char*)&pomiar;
-	
-	uart2_transmit(p[0]);
-	uart2_transmit(p[1]);
-
+	uart2_transmit(d);
+	uart2_transmit(b);
+	//uart2_transmit(5);
+	//uart2_transmit(6);
 	uart2_transmit('\n');
 	//todo:!!!
 }
