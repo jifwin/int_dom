@@ -5,7 +5,7 @@ from django.template import RequestContext, loader
 from django.contrib.auth import authenticate, login
 from django.contrib.auth import logout
 sys.path.append('/home/mehwe/git/communication/uart/') #do rozkminienia!!!!!!!!!!
-sys.path.append('/home/grzegorz/git/int_dom/communication/uart/') #do rozkminienia!!!!!!!!!!
+sys.path.append('/home/grzegorz/int_dom_v2/git/communication/uart/') #do rozkminienia!!!!!!!!!!
 from frdm_connect import *
 
 import simplejson

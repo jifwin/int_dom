@@ -13,13 +13,12 @@ def frdm_response():
     signal.signal(signal.SIGALRM, handler)
     signal.alarm(1)
     try:
-
         response = file_object.readline()
     except IOError:
         pass
     signal.alarm(0)
     file_object.close()
-    #print response
+    print response
     os.remove('/tmp/django.lck')
     #rm /tmp/django.lck
     if response == 'X\n':       #if response is ACK
@@ -27,14 +26,18 @@ def frdm_response():
     else:
         return "ERROR"
 def frdm_send(value):
-    open('/tmp/django.lck', 'w').close()
-    #touch /tmp/django.lck
-    value=int_to_char(value)
-    file_object = open(filename, 'w')
-    value=value+"\n"                            #adding EOL
-    file_object.write(value)
-    file_object.close()
-    return frdm_response()
+    print "frdm send"
+    if not os.path.isfile('/tmp/django.lck'):
+        open('/tmp/django.lck', 'w').close()
+        #touch /tmp/django.lck
+        value=int_to_char(value)
+        file_object = open(filename, 'w')
+        value=value+"\n"                            #adding EOL
+        file_object.write(value)
+        file_object.close()
+        return frdm_response()
+    else:
+        return None #i tak olewamy
 def refresh_response():
     file_object = open(filename, 'r')
     response = file_object.readline()
@@ -81,9 +84,12 @@ def light_response():
 
     resp=ord(response[1])*256+ord(response[0])
 #    print resp #response from lighten detectoren
+    os.remove('/tmp/django.lck')
     return resp
 def send_light():
+    print "send light"
     if not os.path.isfile('/tmp/django.lck'):
+        open('/tmp/django.lck', 'w').close()
         file_object=open(filename,'w')
         file_object.write('Z'+'\n')
         file_object.close()
