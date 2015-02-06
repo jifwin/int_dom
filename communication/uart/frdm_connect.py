@@ -1,11 +1,23 @@
 __author__ = 'mehow'
 #!/usr/bin/python2
 import os
+import signal
 filename='/dev/rfcomm0'
+def handler(signum, frame):
+    print "Signal handler Error", signum
+    raise IOError('Timeout')
 def frdm_response():
     #value=[]
     file_object = open(filename, 'r')
-    response = file_object.readline()
+
+    signal.signal(signal.SIGALRM, handler)
+    signal.alarm(1)
+    try:
+
+        response = file_object.readline()
+    except IOError:
+        pass
+    signal.alarm(0)
     file_object.close()
     #print response
     os.remove('/tmp/django.lck')
@@ -44,7 +56,15 @@ def refresh():
 
 def light_response():
     file_object=open(filename, 'r')
-    response=file_object.readline()
+    signal.signal(signal.SIGALRM, handler)
+    signal.alarm(1)
+    try:
+        response=file_object.readline()
+    except IOError:
+        pass
+    signal.alarm(0)
+
+
     file_object.close()
 
    # print "DUPA"
