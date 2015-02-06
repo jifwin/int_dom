@@ -1,22 +1,15 @@
 __author__ = 'mehow'
 #!/usr/bin/python2
 import os
-import signal
+
 filename='/dev/rfcomm0'
-def handler(signum, frame):
-    print "Signal handler Error", signum
-    raise IOError('Timeout')
+
 def frdm_response():
     #value=[]
     file_object = open(filename, 'r')
 
-    signal.signal(signal.SIGALRM, handler)
-    signal.alarm(1)
-    try:
-        response = file_object.readline()
-    except IOError:
-        pass
-    signal.alarm(0)
+    response = file_object.readline()
+
     file_object.close()
     print response
     os.remove('/tmp/django.lck')
@@ -45,12 +38,14 @@ def refresh_response():
     resp=""
     for item in response:
         resp+=str(bin(ord(item)))
+        resp+="\n"
     ##maybe add algoritm in future.
     #print resp
     return resp
 
 def refresh():
     if os.path.isfile('/tmp/django.lck'):
+        print "removing djnaog.lck"
         os.remove('/tmp/django.lck')
     file_object = open(filename, 'w')
     file_object.write(chr(128)+'\n')              #0b10000000 as refresh Question
@@ -59,31 +54,12 @@ def refresh():
 
 def light_response():
     file_object=open(filename, 'r')
-    signal.signal(signal.SIGALRM, handler)
-    signal.alarm(1)
-    try:
-        response=file_object.readline()
-    except IOError:
-        pass
-    signal.alarm(0)
-
-
+    response=file_object.readline()
     file_object.close()
-
-   # print "DUPA"
-
-#    print response[0]
-#    print response[1]
-#
-#    print "DUPA"
-
-#    print bin(ord(response[0]))
-#    print bin(ord(response[1]))
-    
-#    print type(response)
 
     resp=ord(response[1])*256+ord(response[0])
 #    print resp #response from lighten detectoren
+    print "kasownik"
     os.remove('/tmp/django.lck')
     return resp
 def send_light():

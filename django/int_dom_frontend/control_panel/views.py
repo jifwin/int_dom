@@ -8,8 +8,13 @@ sys.path.append('/home/mehwe/git/communication/uart/') #do rozkminienia!!!!!!!!!
 sys.path.append('/home/grzegorz/int_dom_v2/git/communication/uart/') #do rozkminienia!!!!!!!!!!
 from frdm_connect import *
 
+
 import simplejson
 from django.core import serializers
+
+def handler(signum, frame):
+    print "Signal handler Error", signum
+    raise IOError('Timeout')
 
 # Create your views here.
 def control(request,device,action):
@@ -20,7 +25,12 @@ def control(request,device,action):
         device = int(device)
 
         response=device*4+action_table[action]
+
         frdm_send(response)
+
+
+
+        signal.alarm(0)
 
 
     else:
@@ -105,5 +115,6 @@ def logout_page(request):
 
 
 def light_sensor(request):
+
     serialized_data = simplejson.dumps({"value": send_light()})
     return HttpResponse(serialized_data, content_type="application/json")
