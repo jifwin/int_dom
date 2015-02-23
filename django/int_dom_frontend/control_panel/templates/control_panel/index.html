@@ -241,7 +241,10 @@ $(function() {
 refresh_data = {{refresh|safe}};
 console.log(refresh_data)
 for (index=0, len=refresh_data.refresh.length; index<len; ++index){
-        console.log(refresh_data.refresh[index]);
+
+
+        $('#switch-state_0' + index).bootstrapSwitch('state', Boolean(refresh_data.refresh[index]));
+
     }
 </script>
 
