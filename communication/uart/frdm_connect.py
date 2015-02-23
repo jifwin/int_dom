@@ -13,7 +13,7 @@ def frdm_response():
     response = file_object.readline()
 
     file_object.close()
-    print response
+    #print response
     os.remove('/tmp/django.lck')
     #rm /tmp/django.lck
     if response == 'X\n':       #if response is ACK
@@ -21,7 +21,7 @@ def frdm_response():
     else:
         return "ERROR"
 def frdm_send(value):
-    print "frdm send"
+    #print "frdm send"
     if not os.path.isfile('/tmp/django.lck'):
         open('/tmp/django.lck', 'w').close()
         #touch /tmp/django.lck
@@ -53,7 +53,7 @@ def refresh_response():
 
 def refresh():
     if os.path.isfile('/tmp/django.lck'):
-        print "removing djnaog.lck"
+        #print "removing djnaog.lck"
         os.remove('/tmp/django.lck')
     file_object = open(filename, 'w')
     file_object.write(chr(128)+'\n')              #0b10000000 as refresh Question
@@ -67,11 +67,11 @@ def light_response():
 
     resp=ord(response[1])*256+ord(response[0])
 #    print resp #response from lighten detectoren
-    print "kasownik"
+    #print "kasownik"
     os.remove('/tmp/django.lck')
     return resp
 def send_light():
-    print "send light"
+    #print "send light"
     if not os.path.isfile('/tmp/django.lck'):
         open('/tmp/django.lck', 'w').close()
         file_object=open(filename,'w')
@@ -79,7 +79,7 @@ def send_light():
         file_object.close()
         return light_response()
     else:
-        print "Ha, nakladajo sie."
+        #print "Ha, nakladajo sie."
         return 0
 def int_to_char(value):
     if isinstance( value, int ):
