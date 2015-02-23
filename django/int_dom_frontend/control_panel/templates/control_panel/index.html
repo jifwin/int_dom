@@ -240,9 +240,9 @@ $(function() {
 
 refresh_data = {{refresh|safe}};
 console.log(refresh_data)
-refresh_data.forEach(function(entry){
-    console.log(entry);
-    });
+for (index=0, len=refresh_data.length; index<len; ++index){
+        console.log(refresh_data[index]);
+    }
 </script>
 
   </body>
